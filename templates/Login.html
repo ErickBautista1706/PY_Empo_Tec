@@ -1,0 +1,41 @@
+{% extends 'baseV2.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <img src="{{ url_for('static', filename='images/Extrasss/reg1.gif') }}" alt="Imagen de inicio de sesión" class="img-fluid imgLogin">
+    </div>
+    <div class="col-md-6">
+      <div class="login-form">
+        <h2 class="mb-4">Iniciar sesión</h2>
+        <form id="login-form" action="/login" method="POST">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+            <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+            <span class="field-icon toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye-slash"></i></span>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <a href="/registro" class="btn btn-link">¿Aún no tienes una cuenta? Regístrate aquí</a>
+            </div>
+            <div class="col-md-6 text-end">
+              <button type="submit" class="btn btn-primary btn-block ">Iniciar sesión</button>
+            </div>
+          </div>
+        </form>
+        <div class="d-grid gap-2 mt-3">
+          <a href="#" class="btn btn-outline-primary" onclick="redes()"><i class="fab fa-facebook me-2"></i> Iniciar sesión con Facebook</a>
+          <a href="#" class="btn btn-outline-danger" onclick="redes()"><i class="fab fa-google me-2"></i> Iniciar sesión con Google</a>
+          <a href="#" class="btn btn-outline-info" onclick="redes()"><i class="fab fa-linkedin me-2"></i> Iniciar sesión con LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

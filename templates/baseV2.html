@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Empoderando{% endblock %}</title>
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.21/dist/sweetalert2.all.min.js"></script>
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar haderIndex fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Empoderando a través de la Tecnología</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars" style="color: #606162;"></i> <!-- Icono del menú hamburguesa por defecto -->
+                <i class="fa-solid fa-bars fa-bars fa-flip" style="color: #606162;"></i>
+                <!-- Icono del menú hamburguesa para "hover" -->
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Adelante</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/login">Iniciar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="offcanvas-footer">
+                    <img src="{{ url_for('static', filename='images/Extrasss/canvas2.gif') }}" alt="Logo"
+                        class="centered-image">
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="containerCardIndex">
+        {% block content %}
+        <!-- Contenido principal -->
+        {% endblock %}
+    </div>
+
+    <div class="containerCardIndex mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Contacto</h5>
+                            <p>Correo: contacto@tusitio.com</p>
+                            <p>Teléfono: +123 456 7890</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Redes Sociales</h5>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- JS BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <!-- JS SWEETALERT -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.21/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- JS CUSTOM -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+
+</html>

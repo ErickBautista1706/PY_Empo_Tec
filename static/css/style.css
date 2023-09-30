@@ -1,0 +1,489 @@
+/*================ HADER ============================= */
+.haderIndex {
+  background-color: white; 
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); 
+  border-radius: 20px;
+  margin: 20px;
+}
+.haderIndex .container {
+  padding: 0;
+}
+.offcanvas {
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.haderIndex .navbar-toggler .fa-bars {
+  font-size: 29px;
+  display: inline-block;
+}
+
+.haderIndex .navbar-toggler .fa-bars.fa-flip {
+  font-size: 29px;
+  display: none;
+}
+
+.haderIndex .navbar-toggler:hover .fa-bars {
+  display: none;
+}
+
+.haderIndex .navbar-toggler:hover .fa-bars.fa-flip {
+  display: inline-block;
+}
+
+/*================== CARD CONTAINER ==================== */
+
+.containerCardIndex {
+  background-color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); 
+  border-radius: 20px; 
+  margin: 20px; 
+  padding: 20px; 
+}
+
+body {
+  margin-top: 100px; 
+}
+
+
+/* ================= BOTON DARK ==============================*/
+
+.btnModeDark {
+  background-color: #ffffff; /* Por defecto, fondo blanco */
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estilos para los iconos */
+.icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Estilos para el icono de luna (inicialmente oculto) */
+.icon.fa-moon {
+  color: #000000; /* Por defecto, icono oscuro */
+  background-color: #ffffff; /* Por defecto, fondo blanco */
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+/* Estilos para el hover del botón */
+.btnModeDark:hover .icon.fa-sun {
+  transform: rotateY(180deg);
+  opacity: 0;
+  color: #ffffff; /* Al hacer hover, color del icono blanco */
+  background-color: #000000; /* Al hacer hover, fondo negro */
+}
+
+.btnModeDark:hover .icon.fa-moon {
+  transform: rotateY(0deg);
+  opacity: 1;
+  color: #000000; /* Al hacer hover, color del icono oscuro */
+  background-color: #ffffff; /* Al hacer hover, fondo blanco */
+}
+
+/* ==================  INDEX =========================*/
+
+.card-custom {
+  position: relative;
+  max-width: 850px;
+  margin: 0 auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: scale(1.05);
+}
+
+.custom-card-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ================= CARD CONTAINER ==================== */
+
+.containerCardIndex {
+  background-color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+}
+
+
+
+.cardsIndex {
+  background-color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.cardsIndex .card-img-top {
+  border-radius: 15px 15px 0 0;
+}
+
+.cardsIndex .card-body {
+  padding: 15px;
+}
+
+.cardsIndex .card-footer {
+  padding: 10px;
+  background-color: white;
+}
+
+
+.btnCardsIndex {
+  background-color: white;
+  color: #000; 
+  border: none; 
+  border-radius: 30px;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 100%; 
+}
+
+.btnCardsIndex:hover {
+  background-color: #8c8c8c; 
+  color: white; 
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+  border-color: #000;
+}
+
+/* ================= OFF CANVAS ==================== */
+
+.offcanvas-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; 
+}
+
+.centered-image {
+  max-width: 200px; 
+  height: auto;
+}
+
+/*  ================ L O G I N  ====================*/
+.field-icon {
+  float: right;
+  margin-top: -30px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.imgLogin{
+  height: 400px;
+  display: flex;
+  justify-content: center; 
+  margin-left: 50px;
+}
+
+/* ================  toastSweet ======================= */
+.custom-toast-title {
+  font-size: 20px; 
+  font-weight: bold;
+  color: #000; 
+  text-align: center;
+  font-family: 'Arial', sans-serif; 
+}
+
+.custom-toast-popup {
+  background-color: rgba(0, 128, 0, 0.8);
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: -1px;
+  position: relative;
+  text-align: center; 
+}
+
+.custom-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(0, 128, 0, 0.8);
+  animation: progressAnimation 3s linear forwards;
+}
+
+@keyframes progressAnimation {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+
+/* ================  PROFILE  ======================= */
+
+.profile-picture {
+  text-align: center;
+}
+
+.profile-image {
+  width: 200px; 
+  height: 200px; 
+  border-radius: 50%;
+  border: 4px solid white; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.profile-content {
+  text-align: left;
+}
+
+.profile-cover {
+  background-color: #dcdcdc; 
+  height: 200px; 
+}
+
+.profile-card {
+  margin-top: 20px;
+}
+
+.profile-picture {
+  margin-top: -70px;
+}
+
+.profile-content {
+  padding-left: 20px;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.cardProfile-deck {
+  display: flex; 
+  flex-wrap: nowrap; 
+  margin: 0 -15px; 
+  overflow-x: auto; 
+}
+
+.cardProfile {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  margin: 0 15px; 
+  border-radius: 10px;
+  overflow: hidden; 
+  flex: 0 0 auto; 
+  width: 300px; 
+}
+
+.cardProfile:hover {
+  transform: translateY(-5px);
+}
+
+.cardProfile-img {
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px; 
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+}
+
+.cardProfile-text {
+  margin-bottom: 0; 
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.status-green {
+  color: white;
+  background-color: green;
+}
+
+.status-yellow {
+  color: black;
+  background-color: yellow;
+}
+
+.status-gray {
+  color: white;
+  background-color: gray;
+}
+
+/* ================  R E G I S T E R   ======================= */
+
+/* Agrega estos estilos para los botones */
+.btn-register-square {
+  border: 2px solid #e9ecef;
+  transition: background-color 0.3s, transform 0.2s, border 0.3s;
+}
+
+.btn-register-square:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.05);
+}
+
+
+.btn-selected {
+  background-color: #007bff !important;
+  border: 2px solid #007bff !important;
+  color: white !important;
+}
+
+
+.register-form-card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+
+#register-form {
+  margin-top: 20px;
+}
+
+
+.form-floating {
+  margin-bottom: 15px;
+}
+
+/* ================  DARK MODE   ======================= */
+
+/* Estilos para el modo oscuro */
+.dark-mode {
+  background-color: #02253d !important;
+  color: #ffffff !important;
+}
+
+/* Estilos para todas las clases en modo oscuro */
+.dark-mode .haderIndex,
+.dark-mode .containerCardIndex,
+.dark-mode .cardsIndex,
+.dark-mode .btnCardsIndex,
+.dark-mode .btnModeDark,
+.dark-mode .cardProfile,
+.dark-mode .register-form-card,
+.dark-mode .imgLogin,
+.dark-mode .offcanvas.offcanvas-end.show {
+  background-color: #153f59 !important; /* Cambia el fondo */
+  color: #ffffff !important; /* Cambia el color del texto */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+
+}
+
+/* Estilos adicionales para los botones en modo oscuro */
+.dark-mode .btnModeDark {
+  border-color: #ffffff !important;
+}
+
+/* Estilos adicionales para los botones en hover en modo oscuro */
+.dark-mode .btnCardsIndex:hover {
+  background-color: #8c8c8c !important;
+  color: #ffffff !important;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-mode .navbar-brand{
+  color: #fff;
+}
+
+.dark-mode .offcanvas-body {
+  color: #fff !important;
+}
+
+.dark-mode .form-control {
+  color: #fff !important; /* Cambiar el color del texto a blanco */
+  background-color: #153f59 !important; /* Cambiar el color de fondo */
+}
+
+.dark-mode .card-footer{
+  background-color: #153f59 !important; /* Cambia el fondo */
+}
+
+.dark-mode .profile-card{
+  background-color: #153f59 !important;
+  color: #fff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-mode .btnAlumR,
+.dark-mode .btnUserR,
+.dark-mode .btnProfR{
+  color: #fff;
+  border-color: #fff;
+  margin-left: 10px;
+}
+
+/* Estilos para el modal en modo oscuro */
+.dark-mode .modal-content {
+  background-color: #153f59 !important; /* Cambia el fondo del modal */
+  color: #ffffff !important; /* Cambia el color del texto del modal */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-mode .modal-title {
+  color: #ffffff !important; /* Cambia el color del título del modal */
+}
+
+.dark-mode .modal-footer {
+  background-color: #153f59 !important; /* Cambia el fondo del pie de página del modal */
+}
+
+.dark-mode .modal-footer button {
+  color: #ffffff !important; /* Cambia el color de los botones en el pie de página del modal */
+}
+
+/* Estilos adicionales para los botones en modo oscuro en el modal */
+.dark-mode .modal-footer button.btn-secondary {
+  border-color: #ffffff !important;
+}
+
+.dark-mode .modal-footer button.btn-secondary:hover {
+  background-color: #8c8c8c !important;
+  color: #ffffff !important;
+}
+/*
+.dark-mode .swal2-popup {
+  background-color: #153f59 !important;
+  color: #fff !important;
+}
+
+ Estilos para el fondo del icono en el tema oscuro 
+.dark-mode .swal2-icon .swal2-icon-content {
+  background-color: #153f59 !important; 
+  padding: 10px !important; 
+  border-radius: 50% !important; 
+  color: #fff !important;
+}
+
+.dark-mode .swal2-icon .swal2-svg-container svg path {
+  fill: #fff !important; Color del icono dentro del círculo 
+}
+*/
+
+

@@ -1,0 +1,81 @@
+{% extends 'baseV2.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="container">
+    <div class="card profile-card">
+      <div class="card-img-top profile-cover">
+        <!-- PORTADA -->
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="profile-picture text-center">
+              {% if session['usuario'].Imagen %}
+                <img src="{{ url_for('static', filename='images/Usuarios/' + session['usuario'].Imagen) }}" alt="Foto de perfil" class="img-fluid rounded-circle profile-image">
+              {% else %}
+                <img src="{{ url_for('static', filename='images/Usuarios/default_profile_image.jpg') }}" alt="Foto de perfil predeterminada" class="img-fluid rounded-circle profile-image">
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="profile-content">
+              <h2 class="mb-4">Bienvenido/a</h2>
+              <p class="user-name">{{ session['usuario'].Nombre }} {{ session['usuario'].Apellido }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <h3>Cursos Inscritos</h3>
+        <div class="card-deck cardProfile-deck">
+          {% for inscripcion in inscripciones %}
+          <div class="card mb-4 cardProfile">
+            <img src="{{ url_for('static', filename='images/Cursos/' + inscripcion['curso']['imagen']) }}" alt="Imagen del curso" class="card-img-top cardProfile-img">
+            <div class="card-body">
+              <h5 class="card-title">{{ inscripcion['curso']['titulo'] }}</h5>
+              <p class="card-text">{{ inscripcion['curso']['descripcion'] }}</p>
+              <p class="card-text cardProfile-text">Maestro: {{ inscripcion['curso']['maestro'] }}</p>
+              <p class="card-text cardProfile-text">Progreso: {{ inscripcion['progreso'] }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <a href="/" class="btn btn-primary">Ir a la página principal</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  {% if success %}
+  const toast = Swal.fire({
+    icon: 'success',
+    title: 'Inicio de Sesion Exitoso',
+    position: 'top-end',
+    showConfirmButton: false,
+    toast: true,
+    customClass: {
+      title: 'custom-toast-title',
+      popup: 'custom-toast-popup'
+    },
+    onOpen: (toast) => {
+      const progress = toast.querySelector('.custom-toast-progress');
+      progress.style.animationDuration = '3s';
+      progress.style.animationPlayState = 'running';
+    },
+    html: '<div class="custom-toast-progress"></div>'
+  });
+
+  setTimeout(() => {
+    toast.close();
+  }, 3000);
+  {% endif %}
+</script>
+{% endblock %}

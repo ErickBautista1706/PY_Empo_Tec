@@ -1,0 +1,54 @@
+{% extends 'baseV2.html' %}
+
+{% block title %}Página de inicio - Empoderando{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <button class="btnModeDark">
+    <i class="icon fa-regular fa-sun"></i>
+    <i class="icon fa-regular fa-moon"></i>
+  </button>
+</div>
+
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card card-custom" onclick="saludoCardIndex()">
+        <div class="row g-0 justify-content-center">
+          <div class="col-md-6">
+            <img src="{{ url_for('static', filename='images/Extrasss/coverIndex2.gif') }}" class="custom-card-img">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container mt-5 mb-4">
+  <h2 class="section-title">Mira estos cursos que te podrían gustar</h2>
+  <div class="row card-equal-height justify-content-center">
+      {% for curso in cursos_aleatorios %}
+      <div class="col-md-4">
+          <div class="card cardsIndex fixedHeightCard">
+              <img src="{{ url_for('static', filename='images/Cursos/' + curso.imagen) }}" class="card-img-top" alt="{{ curso.titulo }}">
+              <div class="card-body">
+                  <h5 class="card-title">{{ curso.titulo }}</h5>
+                  <p class="card-text">{{ curso.descripcion }}</p>
+              </div>
+              <div class="card-footer">
+                  <a href="#" class="btn btnCardsIndex">Ver curso</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}
