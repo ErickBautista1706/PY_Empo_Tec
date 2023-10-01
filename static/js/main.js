@@ -3,25 +3,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnUserR = document.querySelector('.btnUserR');
   const btnProfR = document.querySelector('.btnProfR');
   let darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+  const switchToggle = document.getElementById('switch-toggle');
 
-  // Función para cambiar el modo oscuro
   function toggleDarkMode() {
-    // Obtiene el elemento body
     const body = document.querySelector('body');
 
-    // Cambia el estado del modo oscuro
     darkModeEnabled = !darkModeEnabled;
 
-    // Aplica la clase 'dark-mode' al body si el modo oscuro está habilitado, o la elimina si está deshabilitado
     if (darkModeEnabled) {
       body.classList.add('dark-mode');
     } else {
       body.classList.remove('dark-mode');
     }
 
-    // Guarda el estado del modo oscuro en localStorage
+
     localStorage.setItem('darkModeEnabled', darkModeEnabled.toString());
+
+
+    document.getElementById('switch-toggle').checked = darkModeEnabled;
   }
+
+
+  if (switchToggle) {
+    switchToggle.checked = darkModeEnabled;
+    switchToggle.addEventListener('change', toggleDarkMode);
+    
+  }
+
   if (darkModeEnabled) {
     const body = document.querySelector('body');
     body.classList.add('dark-mode');
@@ -106,7 +114,7 @@ function btnReg() {
     data: formData,
     processData: false,
     contentType: false,
-    success: function(response) {
+    success: function (response) {
       if (response.success) {
         Swal.fire({
           icon: 'success',
@@ -128,10 +136,13 @@ function btnReg() {
         });
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.error(error);
     }
   });
 }
 
-
+function access() {
+  const modal = new bootstrap.Modal(document.getElementById('accessibilityModal'));
+  modal.show();
+}
