@@ -89,31 +89,40 @@
             <i class="fa-solid fa-universal-access" style="color: #000000;"></i>
         </button>
     </div>
-    
+
 
 
     <!-- MODALES -->
     <div class="modal fade" id="accessibilityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Opciones de Accesibilidad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Opciones de Accesibilidad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="switch-toggle" onchange="toggleDarkMode()">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="mode-label">Modo Oscuro</span>
                 </div>
-                <div class="modal-body">
-                    <div class="switch-container">
-                        <label class="switch">
-                          <input type="checkbox" id="switch-toggle" onchange="toggleDarkMode()">
-                          <span class="slider"></span>
-                        </label>
-                        <span id="mode-label">Modo Oscuro</span>
-                      </div>
-                    
 
-                </div>
+                <!-- Dropdown para seleccionar idioma -->
+                <select id="language-select" onchange="changeLanguage(this.value)">
+                    <option value="es">Español</option>
+                    <option value="en">Inglés</option>
+                    <option value="zh-TW">Chino (Tradicional)</option>
+                    <option value="de">Alemán</option>
+                    <option value="fr">Francés</option>
+                  </select>
+
             </div>
         </div>
     </div>
+</div>
+
 
 
     <!-- JS BOOTSTRAP -->
@@ -129,8 +138,11 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
+    <!-- translate api -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+   
 
 </body>
 

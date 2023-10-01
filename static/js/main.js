@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnProfR = document.querySelector('.btnProfR');
   let darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
   const switchToggle = document.getElementById('switch-toggle');
+  const modeLabel = document.getElementById('mode-label');
 
   function toggleDarkMode() {
     const body = document.querySelector('body');
@@ -12,8 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (darkModeEnabled) {
       body.classList.add('dark-mode');
+      modeLabel.textContent = 'Modo Oscuro';
     } else {
       body.classList.remove('dark-mode');
+      modeLabel.textContent = 'Modo Claro';
+
     }
 
 
@@ -27,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (switchToggle) {
     switchToggle.checked = darkModeEnabled;
     switchToggle.addEventListener('change', toggleDarkMode);
-    
+
   }
 
   if (darkModeEnabled) {
@@ -145,4 +149,30 @@ function btnReg() {
 function access() {
   const modal = new bootstrap.Modal(document.getElementById('accessibilityModal'));
   modal.show();
+}
+
+
+function translatePage(targetLanguage) {
+  const elementsToTranslate = document.querySelectorAll('h1,h2,h3,h4,h5, p, a');
+  elementsToTranslate.forEach(element => {
+    const text = element.innerText;
+    translateText(text, targetLanguage)
+      .then(translation => {
+        element.innerText = translation;
+      })
+      .catch(error => console.error('Translation error:', error));
+  });
+}
+
+async function translateText(text, targetLanguage) {
+  const response = await fetch(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLanguage}&dt=t&q=${encodeURI(text)}`
+  );
+  const translation = await response.json();
+  return translation[0][0][0];
+}
+
+function changeLanguage() {
+  const selectedLanguage = document.getElementById('language-select').value;
+  translatePage(selectedLanguage);
 }
