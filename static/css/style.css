@@ -583,3 +583,9 @@ input:checked + .slider:before {
   margin-left: 5px;
   font-size: 14px;
 }
+
+.fixed-static {
+  position: absolute;
+  top: 0;
+  width: 97.5%;
+}
