@@ -115,5 +115,41 @@ def registro_exitoso():
     return render_template('Login.html')
 
 
+@app.route('/inicio_usuario')
+def inicio_usuario():
+    if 'usuario' in session:
+        cursos_aleatorios = Cursos().get_random_cursos()  # Call the method to get random courses
+        return render_template('inicio_usuario.html', usuario=session['usuario'], cursos_aleatorios=cursos_aleatorios)  # Pass cursos_aleatorios to the template
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    return redirect(url_for('index'))
+
+# @app.route('/ver_curso/<int:curso_id>')
+# def ver_curso(curso_id):
+#     cursos_handler = Cursos()
+    
+#     curso = cursos_handler.obtener_curso_por_id(curso_id)
+#     lecciones = cursos_handler.obtener_lecciones_por_curso(curso_id)
+    
+#     if curso:
+#         return render_template('ver_curso.html', curso=curso, lecciones=lecciones)
+#     else:
+#         return render_template('curso_no_encontrado.html')
+
+@app.route('/ver_curso/<int:curso_id>')
+def ver_curso(curso_id):
+    cursos_handler = Cursos()
+    curso = cursos_handler.obtener_curso_por_id(curso_id)
+    lecciones = cursos_handler.obtener_lecciones_por_curso(curso_id)
+    
+    if curso:
+        return jsonify(curso=curso, lecciones=lecciones)
+    else:
+        return jsonify(error='Curso no encontrado'), 404
+
 if __name__ == '__main__':
     app.run(debug=True)
