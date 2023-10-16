@@ -18,6 +18,7 @@
                     {{ usuario.Nombre }}
                 </button>
                 <div class="dropdown-content">
+                    <a href="/inicio_exitoso">Perfil</a>
                     <a href="/logout">Cerrar Sesión</a>
                 </div>
             </div>
@@ -25,28 +26,59 @@
     </div>
 </div>
 <br>
-<div class="row card-equal-height justify-content-center">
-    {% for curso in cursos_aleatorios %}
-    <div class="col-md-4">
-        <div class="card cardsIndex fixedHeightCard">
-            <img src="{{ url_for('static', filename='images/Cursos/' + curso.imagen) }}" class="card-img-top"
-                alt="{{ curso.titulo }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ curso.titulo }}</h5>
-                <p class="card-text">{{ curso.descripcion }}</p>
-                <span class="curso-id" style="display: none;">{{ curso.id }}</span> 
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btnCardsIndex" 
-                    data-id="{{ curso.id }}" 
-                    data-usuario-id="{{ session['usuario'].ID }}"
-                    data-curso-id="{{ curso.id }}">
-                Ver curso
-            </button>
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Tus Cursos</h3>
+            <div class="card-deck cardProfile-deck">
+                {% for inscripcion in inscripciones %}
+                <div class="col-md-4">
+                    <div class="card cardsIndex fixedHeightCard">
+                        <img src="{{ url_for('static', filename='images/Cursos/' + inscripcion['curso'].imagen) }}"
+                            class="card-img-top" alt="{{ inscripcion['curso'].titulo }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ inscripcion['curso'].titulo }}</h5>
+                            <p class="card-text">{{ inscripcion['curso'].descripcion }}</p>
+                            <span class="curso-id" style="display: none;">{{ inscripcion['curso'].id }}</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/continuar_curso/{{ inscripcion['curso'].id }}" class="btn btnCardsIndex">Continuar</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    {% endfor %}
+</div>
+
+
+<div class="container">
+    <h3>Cursos que te podrían interesar</h3>
+    <div class="row card-equal-height justify-content-center">
+        {% for curso in cursos_aleatorios %}
+        <div class="col-md-4">
+            <div class="card cardsIndex fixedHeightCard">
+                <img src="{{ url_for('static', filename='images/Cursos/' + curso.imagen) }}" class="card-img-top"
+                    alt="{{ curso.titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ curso.titulo }}</h5>
+                    <p class="card-text">{{ curso.descripcion }}</p>
+                    <span class="curso-id" style="display: none;">{{ curso.id }}</span> 
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btnCardsIndex" 
+                        data-id="{{ curso.id }}" 
+                        data-usuario-id="{{ session['usuario'].ID }}"
+                        data-curso-id="{{ curso.id }}">
+                    Ver curso
+                </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
 <div class="modal fade" id="modalCurso" tabindex="-1" role="dialog" aria-labelledby="modalCursoLabel" aria-hidden="true">
@@ -117,11 +149,10 @@
         });
 
         $("#btnInscribirse").click(function () {
-            // Obtén el ID del curso y del usuario
-            var cursoId = $(this).data("curso-id");  // Asegúrate de tener el ID del curso en el botón
-            var usuarioId = $(this).data("usuario-id");  // Asegúrate de tener el ID del usuario en el botón
+            var cursoId = $(this).data("curso-id");  
+            var usuarioId = $(this).data("usuario-id");  
             console.log("recibiendo estas id", cursoId, usuarioId);
-            // Realiza una solicitud AJAX para inscribir al usuario en el curso
+            
             $.ajax({
                 url: "/inscribir_usuario_curso",
                 type: "POST",
@@ -130,9 +161,6 @@
                     cursoId: cursoId
                 },
                 success: function (response) {
-                    // Manejar la respuesta del servidor si es necesario
-                    //console.log("Inscripción exitosa: ", response);
-                    //alert("Te has inscrito en el curso exitosamente.");
                     if (response.success) {
                         const toast = Swal.fire({
                             icon: 'success',
@@ -156,7 +184,6 @@
                             toast.close();
                         }, 3000);
                     }else {
-                        // Si la inscripción no es exitosa, mostrar un mensaje de error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -165,41 +192,11 @@
                     }
                 },
                 error: function (error) {
-                    //console.log("Error al inscribirse en el curso:", error);
-                    //alert("Ocurrió un error al intentar inscribirse en el curso. Por favor, inténtalo nuevamente.");
+                    console.log(error);
                 }
             });
         });
-
-
-
-
     });
-
-
-    {% if success %}
-  const toast = Swal.fire({
-    icon: 'success',
-    title: 'La inscripcion al curso ha sido existosa',
-    position: 'top-end',
-    showConfirmButton: false,
-    toast: true,
-    customClass: {
-      title: 'custom-toast-title',
-      popup: 'custom-toast-popup'
-    },
-    onOpen: (toast) => {
-      const progress = toast.querySelector('.custom-toast-progress');
-      progress.style.animationDuration = '3s';
-      progress.style.animationPlayState = 'running';
-    },
-    html: '<div class="custom-toast-progress"></div>'
-  });
-
-  setTimeout(() => {
-    toast.close();
-  }, 3000);
-{% endif %}
 
 </script>
 

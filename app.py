@@ -118,10 +118,14 @@ def registro_exitoso():
 @app.route('/inicio_usuario')
 def inicio_usuario():
     if 'usuario' in session:
-        cursos_aleatorios = Cursos().get_random_cursos()  # Call the method to get random courses
-        return render_template('inicio_usuario.html', usuario=session['usuario'], cursos_aleatorios=cursos_aleatorios)  # Pass cursos_aleatorios to the template
+        cursos_aleatorios = Cursos().get_random_cursos()
+        usuario_id = session['usuario']['ID']
+        inscripciones = Inscripciones().get_inscripciones_by_usuario(usuario_id)
+
+        return render_template('inicio_usuario.html', usuario=session['usuario'], cursos_aleatorios=cursos_aleatorios, inscripciones=inscripciones)
     else:
         return redirect(url_for('index'))
+
 
 @app.route('/logout')
 def logout():
@@ -154,12 +158,25 @@ def inscribir_usuario_curso():
 
         # Devuelve una respuesta JSON indicando si la inscripción fue exitosa
         if exito:
-            return jsonify({'success': True, 'message': 'Usuario inscrito en el curso exitosamente.'}), 200
+            return jsonify({'success': True, 'message': 'Registro Existoso.'}), 200
         else:
-            return jsonify({'success': False, 'message': 'Error al inscribir al usuario en el curso.'}), 500
+            return jsonify({'success': False, 'message': 'Error al registrarse.'}), 500
 
     except Exception as e:
         return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500
+    
+@app.route('/continuar_curso/<int:curso_id>')
+def mostrar_curso(curso_id):
+    curso_handler = Cursos()
+    curso = curso_handler.obtener_curso_por_id(curso_id)
+    if curso:
+        # Obtén las lecciones del curso
+        lecciones = curso_handler.obtener_lecciones_por_curso(curso_id)
+        return render_template('curso.html', curso=curso, lecciones=lecciones)
+    else:
+        # Si el curso no existe, puedes redirigir a una página de error o manejarlo de otra forma
+        return "Curso no encontrado", 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)

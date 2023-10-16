@@ -481,6 +481,19 @@ body {
   background-color: #153f59 !important;
 }
 
+.dark-mode .accordion-item {
+  background-color: #3b5b77;
+}
+
+.dark-mode .accordion-button {
+  background-color: #153f59;
+  color: #ffffff !important; /* Cambia el color del texto si es necesario */
+}
+
+.dark-mode .accordion-body{
+  color: #fff;
+}
+
 
 /*
 .dark-mode .swal2-popup {
@@ -640,4 +653,10 @@ input:checked + .slider:before {
 
 .dropdown:hover .dropbtn {
   background-color: #f9f9f9;
+}
+
+
+.img-cursoP{
+  max-width: 400px; /* Tamaño máximo deseado en píxeles */
+  height: auto; /* Mantén la proporción de aspecto */
 }

@@ -8,11 +8,9 @@ class Inscripciones:
         cursor = db.execute_query(
             """
             SELECT inscripciones.ID, inscripciones.Usuario, inscripciones.Curso, inscripciones.Progreso, 
-                cursos.Titulo AS CursoTitulo, cursos.Descripcion AS CursoDescripcion, cursos.Imagen AS CursoImagen,
-                maestros.Documento AS MaestroDocumento
+                cursos.Titulo AS CursoTitulo, cursos.Descripcion AS CursoDescripcion, cursos.Imagen AS CursoImagen
             FROM inscripciones
             JOIN cursos ON inscripciones.Curso = cursos.ID
-            JOIN maestros ON cursos.Profesor = maestros.ID
             WHERE inscripciones.Usuario = %s
             """,
             (usuario_id,)
@@ -29,7 +27,6 @@ class Inscripciones:
                     'titulo': inscripcion_data['CursoTitulo'],
                     'descripcion': inscripcion_data['CursoDescripcion'],
                     'imagen': inscripcion_data['CursoImagen'],
-                    'maestro': inscripcion_data['MaestroDocumento']  
                 },
                 'progreso': inscripcion_data['Progreso']
             }
