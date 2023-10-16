@@ -82,3 +82,22 @@ class Cursos:
         cursor.close()
         db.close()
         return lecciones
+    
+    def inscribir_usuario_en_curso(self, usuario_id, curso_id):
+        db = Database()
+        cursor = db.execute_query("INSERT INTO Inscripciones (Usuario, Curso) VALUES (%s, %s)",
+                                 (usuario_id, curso_id))
+        
+        cursor.close()
+        db.close()
+        return True
+
+    def registrar_progreso_lecciones(self, usuario_id, curso_id, lecciones_progreso):
+        db = Database()
+        for leccion_id in lecciones_progreso:
+            cursor = db.execute_query("INSERT INTO ProgresoLecciones (Usuario, Curso, Leccion) VALUES (%s, %s, %s)",
+                                     (usuario_id, curso_id, leccion_id))
+            
+            cursor.close()
+        db.close()
+        return True

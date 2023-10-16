@@ -37,7 +37,12 @@
                 <span class="curso-id" style="display: none;">{{ curso.id }}</span> 
             </div>
             <div class="card-footer">
-                <a href="#" class="btn btnCardsIndex" data-id="{{ curso.id }}">Ver curso</a>
+                <button type="button" class="btn btnCardsIndex" 
+                    data-id="{{ curso.id }}" 
+                    data-usuario-id="{{ session['usuario'].ID }}"
+                    data-curso-id="{{ curso.id }}">
+                Ver curso
+            </button>
             </div>
         </div>
     </div>
@@ -66,6 +71,10 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnInscribirse">Inscribirse</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -74,7 +83,12 @@
     $(document).ready(function () {
         $(".btnCardsIndex").click(function () {
             var cursoId = $(this).data("id");
-            
+            var usuarioId = $(this).data("usuario-id");
+
+            $("#btnInscribirse").data("curso-id", cursoId);
+            $("#btnInscribirse").data("usuario-id", usuarioId);
+            console.log("mande ids")
+
             $.ajax({
                 url: "/ver_curso/" + cursoId,
                 type: "GET",
@@ -101,7 +115,92 @@
                 }
             });
         });
+
+        $("#btnInscribirse").click(function () {
+            // Obtén el ID del curso y del usuario
+            var cursoId = $(this).data("curso-id");  // Asegúrate de tener el ID del curso en el botón
+            var usuarioId = $(this).data("usuario-id");  // Asegúrate de tener el ID del usuario en el botón
+            console.log("recibiendo estas id", cursoId, usuarioId);
+            // Realiza una solicitud AJAX para inscribir al usuario en el curso
+            $.ajax({
+                url: "/inscribir_usuario_curso",
+                type: "POST",
+                data: {
+                    usuarioId: usuarioId,
+                    cursoId: cursoId
+                },
+                success: function (response) {
+                    // Manejar la respuesta del servidor si es necesario
+                    //console.log("Inscripción exitosa: ", response);
+                    //alert("Te has inscrito en el curso exitosamente.");
+                    if (response.success) {
+                        const toast = Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            toast: true,
+                            customClass: {
+                                title: 'custom-toast-title',
+                                popup: 'custom-toast-popup'
+                            },
+                            onOpen: (toast) => {
+                                const progress = toast.querySelector('.custom-toast-progress');
+                                progress.style.animationDuration = '3s';
+                                progress.style.animationPlayState = 'running';
+                            },
+                            html: '<div class="custom-toast-progress"></div>'
+                        });
+
+                        setTimeout(() => {
+                            toast.close();
+                        }, 3000);
+                    }else {
+                        // Si la inscripción no es exitosa, mostrar un mensaje de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function (error) {
+                    //console.log("Error al inscribirse en el curso:", error);
+                    //alert("Ocurrió un error al intentar inscribirse en el curso. Por favor, inténtalo nuevamente.");
+                }
+            });
+        });
+
+
+
+
     });
+
+
+    {% if success %}
+  const toast = Swal.fire({
+    icon: 'success',
+    title: 'La inscripcion al curso ha sido existosa',
+    position: 'top-end',
+    showConfirmButton: false,
+    toast: true,
+    customClass: {
+      title: 'custom-toast-title',
+      popup: 'custom-toast-popup'
+    },
+    onOpen: (toast) => {
+      const progress = toast.querySelector('.custom-toast-progress');
+      progress.style.animationDuration = '3s';
+      progress.style.animationPlayState = 'running';
+    },
+    html: '<div class="custom-toast-progress"></div>'
+  });
+
+  setTimeout(() => {
+    toast.close();
+  }, 3000);
+{% endif %}
+
 </script>
 
 

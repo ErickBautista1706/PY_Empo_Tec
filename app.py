@@ -128,17 +128,6 @@ def logout():
     session.pop('usuario', None)
     return redirect(url_for('index'))
 
-# @app.route('/ver_curso/<int:curso_id>')
-# def ver_curso(curso_id):
-#     cursos_handler = Cursos()
-    
-#     curso = cursos_handler.obtener_curso_por_id(curso_id)
-#     lecciones = cursos_handler.obtener_lecciones_por_curso(curso_id)
-    
-#     if curso:
-#         return render_template('ver_curso.html', curso=curso, lecciones=lecciones)
-#     else:
-#         return render_template('curso_no_encontrado.html')
 
 @app.route('/ver_curso/<int:curso_id>')
 def ver_curso(curso_id):
@@ -150,6 +139,27 @@ def ver_curso(curso_id):
         return jsonify(curso=curso, lecciones=lecciones)
     else:
         return jsonify(error='Curso no encontrado'), 404
+
+@app.route("/inscribir_usuario_curso", methods=["POST"]) 
+def inscribir_usuario_curso():
+    try:
+        # Obtén los datos del usuario y curso desde la solicitud
+        usuario_id = request.form.get('usuarioId')
+        curso_id = request.form.get('cursoId')
+
+        print("get id_user: ", usuario_id, "get_curso: ", curso_id )
+        # Llama a la función para inscribir al usuario en el curso
+        cursos = Cursos()  # Suponiendo que tienes una instancia de la clase Cursos
+        exito = cursos.inscribir_usuario_en_curso(usuario_id, curso_id)
+
+        # Devuelve una respuesta JSON indicando si la inscripción fue exitosa
+        if exito:
+            return jsonify({'success': True, 'message': 'Usuario inscrito en el curso exitosamente.'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Error al inscribir al usuario en el curso.'}), 500
+
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
