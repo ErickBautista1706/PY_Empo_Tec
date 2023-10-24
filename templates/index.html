@@ -22,20 +22,26 @@
 </div>
 
 
-
-<div class="container mt-5 mb-4">
-  <h2 class="section-title">Mira estos cursos que te podrían gustar</h2>
+<br />
+<div class="container">
+  <h3>Cursos que te podrían interesar</h3>
   <div class="row card-equal-height justify-content-center">
       {% for curso in cursos_aleatorios %}
       <div class="col-md-4">
           <div class="card cardsIndex fixedHeightCard">
-              <img src="{{ url_for('static', filename='images/Cursos/' + curso.imagen) }}" class="card-img-top" alt="{{ curso.titulo }}">
+              <img src="{{ url_for('static', filename='images/Cursos/' + curso.imagen) }}" class="card-img-top"
+                  alt="{{ curso.titulo }}">
               <div class="card-body">
                   <h5 class="card-title">{{ curso.titulo }}</h5>
                   <p class="card-text">{{ curso.descripcion }}</p>
+                  <span class="curso-id" style="display: none;">{{ curso.id }}</span> 
               </div>
               <div class="card-footer">
-                  <a href="#" class="btn btnCardsIndex">Ver curso</a>
+                  <button type="button" class="btn btnCardsIndex" 
+                      data-id="{{ curso.id }}" 
+                      data-curso-id="{{ curso.id }}">
+                  Ver curso
+              </button>
               </div>
           </div>
       </div>
@@ -44,7 +50,77 @@
 </div>
 
 
+<div class="modal fade" id="modalCurso" tabindex="-1" role="dialog" aria-labelledby="modalCursoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalCursoLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-6">
+                      <img id="imagenCurso" class="img-fluid" alt="Imagen del curso">
+                  </div>
+                  <div class="col-md-6">
+                      <p id="descripcionCurso"></p>
+                      <p id="duracionCurso"></p>
+                      <p id="nivelCurso"></p>
+                      <ul id="listaLecciones"></ul>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="btnInscribirse">Inscribirse</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
 
+
+<script>
+  $(document).ready(function () {
+    console.log("BIENVENIDO A AJAX");
+  
+    $(".btnCardsIndex").click(function () {
+        var cursoId = $(this).data("id");
+  
+        $("#btnInscribirse").data("curso-id", cursoId);
+        console.log("mande ids");
+  
+        $.ajax({
+            url: "/ver_curso/" + cursoId,
+            type: "GET",
+            success: function (response) {
+                $("#modalCursoLabel").text(response.curso.titulo);
+                $("#imagenCurso").attr("src", "static/images/Cursos/" + response.curso.imagen);
+                $("#descripcionCurso").text(response.curso.descripcion);
+                $("#duracionCurso").text("Duración: " + response.curso.duracion + " horas");
+                $("#nivelCurso").text("Nivel: " + response.curso.nivel);
+  
+                console.log("Lecciones: ", response.lecciones);
+  
+                $("#listaLecciones").empty();
+                for (var i = 0; i < response.lecciones.length; i++) {
+                    var leccion = response.lecciones[i];
+                    var listItem = $("<li>").text(leccion.titulo + " - " + leccion.descripcion);
+                    $("#listaLecciones").append(listItem);
+                }
+  
+                $("#modalCurso").modal("show");
+            },
+            error: function (error) {
+                console.log("Error al obtener la información del curso:", error);
+            }
+        });
+    });
+  });
+  
+  
+</script>
 
 
 {% endblock %}
