@@ -1,0 +1,21 @@
+{% extends "baseV2.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Biblioteca Digital</h2>
+    <div class="row">
+        {% for data in library_data %}
+        <div class="col-md-4 mb-4">
+            <div class="card cardsIndex">
+                <img src="{{ data.image_url }}" class="card-img-top" alt="{{ data.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ data.title }}</h5>
+                    <p class="card-text">{{ data.description }}</p>
+                    <a href="{{ data.page_url }}" class="btn btnCardsIndex" target="_blank">Ir al curso</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

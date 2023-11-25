@@ -11,10 +11,7 @@
                         <i class="fas fa-graduation-cap"></i> Alumno
                     </button>
                     
-                    <button class="btn btnUserR" onclick="setRol('Usuario')">
-                        <i class="fas fa-user"></i> Usuario
-                    </button>
-                    <button class="btn btnProfR" onclick="setRol('Profesor/a')">
+                    <button class="btn btnProfR" data-bs-toggle="modal" data-bs-target="#teacherModal" onclick="setRol('Profesor/a')" >
                         <i class="fas fa-chalkboard-teacher"></i> Profesor/a
                     </button>
                     
@@ -84,6 +81,72 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="teacherModal" tabindex="-1" aria-labelledby="teacherModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="teacherModal">Registro de profesor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                       
+                        <form id="register-form" action="/registro" method="POST">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerNombre" name="nombre" placeholder="Nombre" required>
+                                <label for="registerNombre"><i class="fas fa-user"></i> Nombre</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerApellido" name="apellido" placeholder="Apellido" required>
+                                <label for="registerApellido"><i class="fas fa-user"></i> Apellido</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="registerEmail" name="email" placeholder="Correo electrónico" required>
+                                <label for="registerEmail"><i class="fas fa-envelope"></i> Correo electrónico</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Contraseña" required>
+                                <label for="registerPassword"><i class="fas fa-lock"></i> Contraseña</label>
+                                <span class="field-icon toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye-slash"></i></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 20px;">
+                      
+                        <div class="form-floating mb-3">
+                            <input type="file" class="form-control" id="registerFotoPerfil" name="fotoPerfil">
+                            <label for="registerFotoPerfil"><i class="fas fa-image"></i> Foto de perfil</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="file" class="form-control" id="registerDocument" name="fotoPerfil">
+                            <label for="registerDocument"><i class="fas fa-image"></i>Documento del profesor</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="registerFechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" required>
+                            <label for="registerFechaNacimiento"><i class="fas fa-calendar-alt"></i> Fecha de nacimiento</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="registerEscuela" name="escuela" placeholder="Escuela o instituto" required>
+                            <label for="registerEscuela"><i class="fas fa-school"></i> Escuela o instituto</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="registerPaisOrigen" name="paisOrigen" placeholder="País de origen" required>
+                            <label for="registerPaisOrigen"><i class="fas fa-globe"></i> País de origen</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-register" onclick="btnReg()">Registrarse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <input type="hidden" name="rol" id="rol" value="">

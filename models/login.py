@@ -6,6 +6,9 @@ from models.cryptography import Cryptography
 
 class Login:
     UPLOAD_FOLDER = 'C:/Users/Erick/Documents/dig-env/static/images/Usuarios'
+    global UPLOAD_FOLDER_TECH  # Asegúrate de indicar que estás usando la variable global
+    UPLOAD_FOLDER_TECH = 'C:\\Users\\Erick\\Documents\\GitHub\\PY_Empo_Tec\\static\\documents'
+
 
     def __init__(self):
         self.cryptography = Cryptography()
@@ -73,3 +76,19 @@ class Login:
         db.close()
 
         return True  # Assuming everything went well
+    
+    def insert_profesor(self, id_usuario, documento, documento_filename):            
+            try:
+                # Guarda el documento en la carpeta deseada
+                documento_path = os.path.join(UPLOAD_FOLDER_TECH, documento_filename)
+                documento.save(documento_path)
+
+                # Inserta el profesor en la tabla de profesores
+                query = "INSERT INTO profesores (Usuario, DocumentoPath) VALUES (%s, %s)"
+                values = (id_usuario, documento_path)
+                self.execute_query(query, values)
+
+                return True
+            except Exception as e:
+                print("Error al insertar profesor:", str(e))
+                return False

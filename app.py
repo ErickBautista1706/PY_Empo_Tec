@@ -5,12 +5,13 @@ from models.Equipo import Equipo
 from models.login import Login
 from models.inscripciones import Inscripciones
 from models.progresoLecciones import ProgresoLecciones
-from models.cryptography import Cryptography
 import secrets
+import json
 
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = secrets.token_hex(1012//2)  # 1024 caracteres para la cookie
+
 
 
 def inject_current_year():
@@ -176,6 +177,25 @@ def mostrar_curso(curso_id):
     else:
         # Si el curso no existe, puedes redirigir a una página de error o manejarlo de otra forma
         return "Curso no encontrado", 404
+
+@app.route('/eliminar_inscripcion', methods=['POST'])
+def eliminar_inscripcion():
+    inscripcion_id = request.form.get('inscripcion_id')  # Asegúrate de enviar el 'inscripcion_id' desde tu AJAX
+
+    curso_handler = Cursos()
+    exito = curso_handler.eliminar_inscripcion_por_id(inscripcion_id)
+
+    if exito:
+        return jsonify({'success': True, 'message': 'Inscripción eliminada con éxito'})
+    else:
+        return jsonify({'success': False, 'message': 'Error al eliminar la inscripción'})
+
+@app.route('/library')
+def library():
+    with open('static/data/library.json') as f:
+        library_data = json.load(f)
+        
+    return render_template('library.html', library_data=library_data)
 
 
 if __name__ == '__main__':

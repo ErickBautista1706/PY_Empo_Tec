@@ -1,0 +1,51 @@
+[
+    {
+      "title": "Fundamentos de html",
+      "description": "Aprende los fundamentos del lenguaje de etiquetas HTML",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HTML5_Badge.svg/800px-HTML5_Badge.svg.png",
+      "page_url": "https://www.w3schools.com/html/html_intro.asp"
+    },
+    {
+      "title": "Fundamentos de css",
+      "description": "Te interesa aprender acerca de los estilos con css? Entra aqui",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/2048px-CSS3_logo.svg.png",
+      "page_url": "https://www.w3schools.com/css/css_intro.asp"
+    },
+    {
+        "title": "Fundamentos de JavaScript",
+        "description": "Aprende JavaScript uno de los lenguajes de programacion para sistemas web",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png",
+        "page_url": "https://www.w3schools.com/js/js_intro.asp"
+    },
+    {
+        "title": "Aprende las partes de tu ordenador",
+        "description": "En este video te ensenaremos las partes basicas de tu computadora y aprendas acerca de ello",
+        "image_url": "https://png.pngtree.com/png-clipart/20230913/original/pngtree-imac-clipart-cartoon-desktop-computer-with-plant-and-flower-vector-png-image_11065734.png",
+        "page_url": "https://www.youtube.com/watch?v=WSCvbZxMXMw"
+    },
+    {
+        "title": "Problemas para usar WhatsApp? Tranquil@ mira lo siguiente",
+        "description": "En este apartado te ensenaremos a como usar la aplicacion de WhatsApp desde Cero",
+        "image_url": "https://cdn-icons-png.flaticon.com/512/4102/4102940.png",
+        "page_url": "https://www.whatsapp.com/coronavirus/get-started?lang=es_LA"
+    },
+    {
+      "title": "Mejora tu mecanografia con el siguiente curso",
+      "description": "En esta pagina podras encontrar diferentes modulos que te ayudaran a mejorar tu rapidez con el taclado",
+      "image_url": "https://www.nibcode.com/images/contents/53/typing-basic-position.png",
+      "page_url": "https://www.typingclub.com/dactilografia"
+    },
+    {
+      "title": "Introduccion a la programacion con c++",
+      "description": "Aprende a programar desde cero con C++",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1822px-ISO_C%2B%2B_Logo.svg.png",
+      "page_url": "https://www.w3schools.com/cpp/cpp_intro.asp"
+    },
+    {
+      "title": "Haz llamadas por telefono",
+      "description": "Te ensenaremos a como hacer y recibir llamadas por telefono celular",
+      "image_url": "https://cdn-icons-png.flaticon.com/512/4298/4298211.png",
+      "page_url": "https://support.google.com/phoneapp/answer/2811745?hl=es-419"
+    }
+    
+]

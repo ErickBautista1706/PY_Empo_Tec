@@ -101,3 +101,11 @@ class Cursos:
             cursor.close()
         db.close()
         return True
+    
+    def eliminar_inscripcion_por_id(self, inscripcion_id):
+            db = Database()
+            cursor = db.execute_query("DELETE FROM Inscripciones WHERE ID = %s", (inscripcion_id,))
+            cursor.close()
+            db.close()
+            return True
+        

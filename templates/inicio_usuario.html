@@ -43,7 +43,9 @@
                             <span class="curso-id" style="display: none;">{{ inscripcion['curso'].id }}</span>
                         </div>
                         <div class="card-footer">
-                            <a href="/continuar_curso/{{ inscripcion['curso'].id }}" class="btn btnCardsIndex">Continuar</a>
+                            <a href="/continuar_curso/{{ inscripcion['curso'].id }}" class="btn btnCardsIndex btnContinuarCurso">Continuar</a>
+                            &nbsp;
+                            <a class="btn btnCardsIndex btnSalirCurso" data-inscripcion-id="{{ inscripcion['id'] }}">Salir del curso</a>
                         </div>
                     </div>
                 </div>
@@ -52,6 +54,7 @@
         </div>
     </div>
 </div>
+
 
 
 <div class="container">
@@ -68,7 +71,7 @@
                     <span class="curso-id" style="display: none;">{{ curso.id }}</span> 
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btnCardsIndex" 
+                    <button type="button" class="btn btnCardsIndex btnContinuarCurso" 
                         data-id="{{ curso.id }}" 
                         data-usuario-id="{{ session['usuario'].ID }}"
                         data-curso-id="{{ curso.id }}">
@@ -113,7 +116,10 @@
 
 <script>
     $(document).ready(function () {
-        $(".btnCardsIndex").click(function () {
+        console.log("Estoy en la pantalla de usuarios");
+
+
+        $(".btnContinuarCurso").click(function () {
             var cursoId = $(this).data("id");
             var usuarioId = $(this).data("usuario-id");
 
@@ -151,51 +157,121 @@
         $("#btnInscribirse").click(function () {
             var cursoId = $(this).data("curso-id");  
             var usuarioId = $(this).data("usuario-id");  
-            console.log("recibiendo estas id", cursoId, usuarioId);
-            
-            $.ajax({
-                url: "/inscribir_usuario_curso",
-                type: "POST",
-                data: {
-                    usuarioId: usuarioId,
-                    cursoId: cursoId
-                },
-                success: function (response) {
-                    if (response.success) {
-                        const toast = Swal.fire({
-                            icon: 'success',
-                            title: response.message,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            toast: true,
-                            customClass: {
-                                title: 'custom-toast-title',
-                                popup: 'custom-toast-popup'
-                            },
-                            onOpen: (toast) => {
-                                const progress = toast.querySelector('.custom-toast-progress');
-                                progress.style.animationDuration = '3s';
-                                progress.style.animationPlayState = 'running';
-                            },
-                            html: '<div class="custom-toast-progress"></div>'
-                        });
-
-                        setTimeout(() => {
-                            toast.close();
-                        }, 3000);
-                    }else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
+        
+            // Mostrar una alerta de confirmación
+            Swal.fire({
+                title: '¿Quieres inscribirte en este curso?',
+                text: 'Al hacer clic en "Sí", te inscribirás en este curso.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, inscribirse'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, realizar la inscripción
+                    $.ajax({
+                        url: "/inscribir_usuario_curso",
+                        type: "POST",
+                        data: {
+                            usuarioId: usuarioId,
+                            cursoId: cursoId
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                // Mostrar una alerta de éxito
+                                const toast = Swal.fire({
+                                    icon: 'success',
+                                    title: response.message,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    toast: true,
+                                    customClass: {
+                                        title: 'custom-toast-title',
+                                        popup: 'custom-toast-popup'
+                                    },
+                                    onOpen: (toast) => {
+                                        const progress = toast.querySelector('.custom-toast-progress');
+                                        progress.style.animationDuration = '3s';
+                                        progress.style.animationPlayState = 'running';
+                                    },
+                                    html: '<div class="custom-toast-progress"></div>'
+                                });
+        
+                                setTimeout(() => {
+                                    toast.close();
+                                    // Recargar la página después de 1.5 segundos
+                                    location.reload();
+                                }, 3000);
+                            } else {
+                                // Mostrar una alerta de error
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
                 }
             });
         });
+        
+        $(".btnSalirCurso").click(function(){
+            var inscripcionId = $(this).data("inscripcion-id");
+        
+            // Mostrar una alerta de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción eliminará tu inscripción en el curso. ¿Deseas continuar?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, salir del curso'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, realizar la eliminación
+                    $.ajax({
+                        url: "/eliminar_inscripcion",
+                        type: "POST",
+                        data: {
+                            inscripcion_id: inscripcionId
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                // Mostrar una alerta de éxito
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Inscripción eliminada con éxito',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function () {
+                                    // Recargar la página después de 1.5 segundos
+                                    location.reload();
+                                });
+                            } else {
+                                // Mostrar una alerta de error
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error al eliminar la inscripción',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.log("Error en la solicitud AJAX:", error);
+                        }
+                    });
+                }
+            });
+        });
+        
+        
+
     });
 
 </script>

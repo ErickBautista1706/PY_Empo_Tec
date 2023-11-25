@@ -49,11 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (btnProfR) {
-    btnProfR.addEventListener('click', () => {
-      showAlert('Profesor/a');
-    });
-  }
 });
 
 function showAlert(role) {
