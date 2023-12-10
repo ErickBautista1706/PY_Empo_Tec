@@ -16,7 +16,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -25,10 +24,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                       
-                        <form id="register-form" action="/registro" method="POST">
+                <form id="register-form" action="/registro" method="POST" onsubmit="return validar(1)">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="registerNombre" name="nombre" placeholder="Nombre" required>
                                 <label for="registerNombre"><i class="fas fa-user"></i> Nombre</label>
@@ -46,43 +44,64 @@
                                 <label for="registerPassword"><i class="fas fa-lock"></i> Contraseña</label>
                                 <span class="field-icon toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye-slash"></i></span>
                             </div>
-                        </form>
+                        </div>
+                        <div class="col-md-6" style="margin-top: 20px;">
+                            <div class="form-floating mb-3">
+                                <input type="file" class="form-control" id="registerFotoPerfil" name="fotoPerfil">
+                                <label for="registerFotoPerfil"><i class="fas fa-image"></i> Foto de perfil</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="registerFechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" required>
+                                <label for="registerFechaNacimiento"><i class="fas fa-calendar-alt"></i> Fecha de nacimiento</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerEscuela" name="escuela" placeholder="Escuela o instituto" required>
+                                <label for="registerEscuela"><i class="fas fa-school"></i> Escuela o instituto</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerPaisOrigen" name="paisOrigen" placeholder="País de origen" required>
+                                <label for="registerPaisOrigen"><i class="fas fa-globe"></i> País de origen</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6" style="margin-top: 20px;">
-                      
-                        <div class="form-floating mb-3">
-                            <input type="file" class="form-control" id="registerFotoPerfil" name="fotoPerfil">
-                            <label for="registerFotoPerfil"><i class="fas fa-image"></i> Foto de perfil</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="registerFechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" required>
-                            <label for="registerFechaNacimiento"><i class="fas fa-calendar-alt"></i> Fecha de nacimiento</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="registerEscuela" name="escuela" placeholder="Escuela o instituto" required>
-                            <label for="registerEscuela"><i class="fas fa-school"></i> Escuela o instituto</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="registerPaisOrigen" name="paisOrigen" placeholder="País de origen" required>
-                            <label for="registerPaisOrigen"><i class="fas fa-globe"></i> País de origen</label>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-register" onclick="btnReg()">Registrarse</button>
                     </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-register" onclick="btnReg()">Registrarse</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 
-
-
-
 <input type="hidden" name="rol" id="rol" value="">
 
+<script>
+    function validar(type) {
+        console.log('Ejecutando validar', type);
+        if (type === 1) {
+            // Validar campos para el formulario de registro
+            var nombre = document.getElementById('registerNombre').value;
+            var apellido = document.getElementById("registerApellido").value;
+            var email = document.getElementById('registerEmail').value;
+            var password = document.getElementById("registerPassword").value;
+            var fechaNacimiento = document.getElementById('registerFechaNacimiento').value;
+            var escuela = document.getElementById('registerEscuela').value;
+            var paisOrigen = document.getElementById('registerPaisOrigen').value;
 
+            if (!nombre || !apellido || !email || !password || !fechaNacimiento || !escuela || !paisOrigen) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Campos vacíos',
+                    text: 'Todos los campos son obligatorios',
+                });
+            
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
 
 {% endblock %}

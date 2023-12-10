@@ -96,6 +96,18 @@ function btnReg() {
   const escuela = document.getElementById('registerEscuela').value;
   const paisOrigen = document.getElementById('registerPaisOrigen').value;
 
+  const validationError = validar_usuarios(nombre, apellido, correo, contrasena, rol, fechaNacimiento, escuela, paisOrigen);
+
+  if (validationError) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error de registro',
+      text: `El campo ${validationError} es obligatorio.`,
+      confirmButtonText: 'Aceptar'
+    });
+    return;
+  }
+
   const formData = new FormData();
   formData.append('nombre', nombre);
   formData.append('apellido', apellido);
@@ -123,7 +135,6 @@ function btnReg() {
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.href = '/login';
-
           }
         });
       } else {
@@ -137,9 +148,16 @@ function btnReg() {
     },
     error: function (error) {
       console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de registro',
+        text: 'Hubo un problema al registrar el usuario. Por favor, inténtalo de nuevo.',
+        confirmButtonText: 'Aceptar'
+      });
     }
   });
 }
+
 
 function access() {
   const modal = new bootstrap.Modal(document.getElementById('accessibilityModal'));
@@ -170,4 +188,18 @@ async function translateText(text, targetLanguage) {
 function changeLanguage() {
   const selectedLanguage = document.getElementById('language-select').value;
   translatePage(selectedLanguage);
+}
+
+
+function validar_usuarios(nombre, apellido, correo, psw, rol, fecha, escuela, pais) {
+  if (nombre === '') return 'Nombre';
+  if (apellido === '') return 'Apellido';
+  if (correo === '') return 'Correo electrónico';
+  if (psw === '') return 'Contraseña';
+  if (rol === '') return 'Rol';
+  if (fecha === '') return 'Fecha de nacimiento';
+  if (escuela === '') return 'Escuela';
+  if (pais === '') return 'País de origen';
+
+  return null;
 }

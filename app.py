@@ -103,7 +103,7 @@ def registro():
 
         if login_manager.insert_usuario(nombre, apellido, correo, contrasena_encriptada, rol, foto, fecha_nacimiento, pais_origen, instituto_empresa=instituto_empresa):
             # Registro exitoso, devuelve un mensaje de éxito
-            return jsonify({'success': True})
+            return render_template('Login.html')
         else:
             # Registro fallido, devuelve un mensaje de error
             return jsonify({'success': False, 'message': 'Error al registrar el usuario'})
